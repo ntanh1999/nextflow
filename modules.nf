@@ -71,7 +71,7 @@ process ASSEMBLE_SPADES{
         tuple val(sample_id), path(read1), path(read2)
     
     output:
-        path "spades/${sample_id}.fasta", emit: spades_assembly
+        tuple val(sample_id), path("spades/${sample_id}.fasta"), emit: spades_assembly
         path 'spades'
     
     script:
