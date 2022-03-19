@@ -24,8 +24,10 @@ Input files could be:
 ### Parameters
 #### --reads
 - The path of the reads FASTQ files.
+- Multiple files can be specified using the usual wildcards (*, ?), in this case make sure to surround the parameter string value by single quote characters.
 #### --assembly
 - The path of the assembly FASTA files.
+- Multiple files can be specified using the usual wildcards (*, ?), in this case make sure to surround the parameter string value by single quote characters.
 #### --adapter
 - The path of Illumina adapters (Default 'adapters/TruSeq3-PE-2.fa').
 - Use absolute path.
@@ -45,5 +47,5 @@ bash download_Kp4.sh
 Run the pipeline
 ```
 cd ..
-nextflow run main.nf --reads data/*_{1,2}.fastq.gz --assembly data/*.fna --result results
+nextflow run main.nf --reads 'data/*_{1,2}.fastq.gz' --assembly 'data/*.fna' --result results
 ```
