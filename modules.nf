@@ -6,11 +6,11 @@ process FASTQC_READS{
     input:
         tuple val(sample_id), path(reads)
     output:
-        path 'fastqc'
+        path "fastqc_${sample_id}"
     script:
     """
-    mkdir fastqc
-    fastqc -t $task.cpus -o fastqc $reads
+    mkdir fastqc_${sample_id}
+    fastqc -t $task.cpus -o fastqc_${sample_id} $reads
     """
 }
 
@@ -25,9 +25,8 @@ process MULTIQC_READS{
         path "multiqc"
 
     script:
-    def all_fastqc = fastqc.collect{"$it"}.join(' ')
     """
-    multiqc -o multiqc $all_fastqc
+    multiqc -o multiqc $fastqc
     """
 }
 
@@ -106,7 +105,7 @@ process ANNOTATE_PROKKA{
         tuple val(sample_id), path(assembly)
 
     output:
-        tuple val(sample_id), path("prokka/${sample_id}.gff")
+        path "prokka/${sample_id}.gff", emit: gff
         path 'prokka'
     
     script:
@@ -121,14 +120,14 @@ process PANGENOME_ANALYSIS_ROARY{
     publishDir "$params.result", mode: 'copy'
     
     input:
-        tuple val(sample_id), path(gff)
+        path gff
     
     output:
         path "roary"
 
     script:
-    def all_gff = gff.collect{"$it"}.join(' ')
     """
-    roary -v -z -p $task.cpus -f roary $all_gff
+    roary -v -z -p $task.cpus -f roary $gff
     """
 }
+
