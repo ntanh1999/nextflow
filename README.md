@@ -6,7 +6,7 @@ A nextflow pipeline for Bacterial pan-genome analysis
 1. Create a conda environment with all the necessary dependencies: From the repository directory run
 ```bash
 
-conda create -y -c conda-forge -c defaults --name nextflow mamba
+conda create -y -c conda-forge -c defaults --name nextflow python=3.7 mamba
 
 source activate nextflow
 
