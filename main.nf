@@ -1,8 +1,9 @@
 nextflow.enable.dsl = 2
 
 params.reads = "data/*_{1,2}.fastq.gz"
-params.assembly = 'data/*.fasta'
+params.assembly = 'data/*.fna'
 params.result = 'results'
+params.adapter = '/home/ted/nextflow/adapters/TruSeq3-PE-2.fa'
 
 include {
     FASTQC_READS;
@@ -23,15 +24,15 @@ workflow {
     MULTIQC_READS(FASTQC_READS.out)
     
     // Trim and assemble
-    TRIM_PE_TRIMMOMATIC(read_pairs_ch)
-    ASSEMBLE_SPADES(TRIM_PE_TRIMMOMATIC.out)
-    assembly_ch.join(ASSEMBLE_SPADES.out.spades_assembly)
-    ASSEMBLY_EVAL(assembly_ch)
+    TRIM_PE_TRIMMOMATIC(read_pairs_ch, params.adapter)
+    ASSEMBLE_SPADES(TRIM_PE_TRIMMOMATIC.out[0])
+    ASSEMBLE_SPADES.out.spades_assembly.join(assembly_ch)
+    ASSEMBLY_EVAL(ASSEMBLE_SPADES.out.spades_assembly)
 
     // annotation
-    ANNOTATE_PROKKA(assembly_ch)
+    ANNOTATE_PROKKA(ASSEMBLE_SPADES.out.spades_assembly)
 
     // pan-genome analysis
-    PANGENOME_ANALYSIS_ROARY(ANNOTATE_PROKKA.out)
+    PANGENOME_ANALYSIS_ROARY(ANNOTATE_PROKKA.out[0])
     
 }
