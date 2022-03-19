@@ -2,10 +2,10 @@
 nextflow.enable.dsl = 2
 
 // Define the default parameters
-params.reads = "data/*_{1,2}.fastq.gz"
-params.assembly = "data/*.fna"
+params.reads = "$baseDir/data/*_{1,2}.fastq.gz"
+params.assembly = "$baseDir/data/*.fna"
+params.adapter = "$baseDir/adapters/TruSeq3-PE-2.fa"
 params.result = "results"
-params.adapter = "/home/ted/nextflow/adapters/TruSeq3-PE-2.fa"
 
 // Import modules
 include {

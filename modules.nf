@@ -37,7 +37,7 @@ process TRIM_PE_TRIMMOMATIC{
 
     input:
         tuple val(sample_id), path(reads)
-        val adapter
+        path adapter
     
     output:
         tuple \
