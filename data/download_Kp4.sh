@@ -1,10 +1,12 @@
 #!/bin/bash
 
 if [ ! -f GCF_000240185.1_ASM24018v2_genomic.fna ]; then
-    wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/240/185/GCF_000240185.1_ASM24018v2/GCF_000240185.1_ASM24018v2_genomic.fna.gz | gunzip
+    wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/240/185/GCF_000240185.1_ASM24018v2/GCF_000240185.1_ASM24018v2_genomic.fna.gz
+    gunzip GCF_000240185.1_ASM24018v2_genomic.fna.gz
 fi
 if [ ! -f GCF_000364385.2_ASM36438v2_genomic.fna ]; then
-    wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/364/385/GCF_000364385.2_ASM36438v2/GCF_000364385.2_ASM36438v2_genomic.fna.gz | gunzip
+    wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/364/385/GCF_000364385.2_ASM36438v2/GCF_000364385.2_ASM36438v2_genomic.fna.gz
+    gunzip GCF_000364385.2_ASM36438v2_genomic.fna.gz
 fi
 
 for ac in SRR8607448 SRR8607449;do
